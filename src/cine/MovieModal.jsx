@@ -1,5 +1,11 @@
+import { useContext } from "react";
 import { getImageUrl } from "../utils/cine-utility";
-const MovieModal = ({ movie, onClose }) => {
+import { MovieContext } from "../context";
+const MovieModal = ({ movie, onClose, onCartAdd }) => {
+
+    const {cartData, setCartData} = useContext(MovieContext);
+
+   
    
   return (
     <div className="fixed top-0 left-0 w-screen h-screen z-50  backdrop-blur-sm">
@@ -25,6 +31,7 @@ const MovieModal = ({ movie, onClose }) => {
             </p>
             <div className="grid lg:grid-cols-2 gap-2">
               <a
+              onClick={()=>onCartAdd(movie)}
                 className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
                 href="#"
               >

@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { MovieContext } from "../context";
 import { getImageUrl } from "../utils/cine-utility";
 import MovieModal from "./MovieModal";
 import Rating from "./Rating";
 
 const MovieCard = ({ movie }) => {
+  const { cartData, setCartData } = useContext(MovieContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
@@ -12,25 +14,45 @@ const MovieCard = ({ movie }) => {
     setIsModalOpen(false);
   };
 
-  const handleMovieSelection = (movie) =>{
+  const handleMovieSelection = (movie) => {
     setSelectedMovie(movie);
     setIsModalOpen(true);
-  }
+  };
+
+  //   function to add movie in the cart
+  const handleAddToCart = (movie) => {
+    const available = cartData.find((item) => item.id === movie.id);
+    if (!available) {
+      setCartData([...cartData, movie]);
+    } else {
+      console.log(
+        `the movie ${movie.title} has been added to the cart already`
+      );
+    }
+  };
+
   return (
     <>
       {isModalOpen && (
-        <MovieModal movie={selectedMovie} onClose={handleModalClose} />
+        <MovieModal
+          movie={selectedMovie}
+          onClose={handleModalClose}
+          onCartAdd={handleAddToCart}
+        />
       )}
 
-      <figure
-        onClick={() => handleMovieSelection(movie)}
-        className="p-4 border border-black/10 shadow-sm dark:border-white/10 rounded-xl cursor-pointer"
-      >
-        <img
-          className="w-full object-cover"
-          src={getImageUrl(movie.cover)}
-          alt=""
-        />
+      <figure className="p-4 border border-black/10 shadow-sm dark:border-white/10 rounded-xl">
+        <button
+          onClick={() => handleMovieSelection(movie)}
+          className="cursor-pointer"
+        >
+          <img
+            className="w-full object-cover"
+            src={getImageUrl(movie.cover)}
+            alt=""
+          />
+        </button>
+
         <figcaption className="pt-4">
           <h3 className="text-xl mb-1">{movie.title}</h3>
           <p className="text-[#575A6E] text-sm mb-2">{movie.genre}</p>
@@ -38,7 +60,8 @@ const MovieCard = ({ movie }) => {
             <Rating value={movie.rating} />
           </div>
           <a
-            className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
+            onClick={() => handleAddToCart(movie)}
+            className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm cursor-pointer"
             href="#"
           >
             <img src="./assets/tag.svg" alt="" />
