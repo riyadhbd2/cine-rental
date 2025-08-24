@@ -1,16 +1,9 @@
-import { useContext } from "react";
 import { getImageUrl } from "../utils/cine-utility";
-import { MovieContext } from "../context";
 const MovieModal = ({ movie, onClose, onCartAdd }) => {
-
-    const {cartData, setCartData} = useContext(MovieContext);
-
-   
-   
   return (
-    <div className="fixed top-0 left-0 w-screen h-screen z-50  backdrop-blur-sm">
+    <div className="fixed top-0 left-0 w-screen h-screen z-50  backdrop-blur-sm bg-black/60">
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[420px] sm:max-w-[600px] lg:max-w-[984px] p-4 max-h-[90vh] overflow-auto">
-        <div className="bg-white shadow-md  rounded-2xl sm:grid sm:grid-cols-[2fr_1fr] overflow-hidden">
+        <div className="dark:bg-black shadow-md border border-white rounded-2xl sm:grid sm:grid-cols-[2fr_1fr] overflow-hidden bg-white">
           <img
             className="sm:order-2 w-full object-cover h-full max-sm:max-h-[300px]"
             src={getImageUrl(movie.cover)}
@@ -31,12 +24,14 @@ const MovieModal = ({ movie, onClose, onCartAdd }) => {
             </p>
             <div className="grid lg:grid-cols-2 gap-2">
               <a
-              onClick={()=>onCartAdd(movie)}
+                onClick={() => onCartAdd(movie)}
                 className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
                 href="#"
               >
                 <img src="./assets/tag.svg" alt="" />
-                <span>${movie.price} | Add to Cart</span>
+                <span className="dark:text-white">
+                  ${movie.price} | Add to Cart
+                </span>
               </a>
               <a
                 onClick={onClose}

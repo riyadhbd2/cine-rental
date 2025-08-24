@@ -1,15 +1,19 @@
 import { useContext, useState } from "react";
 import moon from "../assets/icons/moon.svg";
+import sun from "../assets/icons/sun.svg";
 import logo from "../assets/logo.svg";
 import ring from "../assets/ring.svg";
 import cart from "../assets/shopping-cart.svg";
 import CartDetails from "../CartDetails";
 import { MovieContext } from "../context";
+import { ThemeContext } from "../context/ThemeContext";
 
 const Header = () => {
   const [showCartModal, setShowCartModal] = useState(false);
 
-  const { cartData,} = useContext(MovieContext);
+  const { cartData } = useContext(MovieContext);
+
+  const { theme, setTheme } = useContext(ThemeContext);
 
   return (
     <>
@@ -31,12 +35,23 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a
-                className="bg-primary/20 dark:bg-primary/[7%] rounded-lg backdrop-blur-[2px] p-1 inline-block"
-                href="#"
-              >
-                <img src={moon} width="24" height="24" alt="" />
-              </a>
+              {theme === "dark" ? (
+                <a
+                  onClick={() => setTheme("light")}
+                  className="bg-primary/20 dark:bg-primary/[7%] rounded-lg backdrop-blur-[2px] p-1 inline-block"
+                  href="#"
+                >
+                  <img src={sun} width="24" height="24" alt="" />
+                </a>
+              ) : (
+                <a
+                  onClick={() => setTheme("dark")}
+                  className="bg-primary/20 dark:bg-primary/[7%] rounded-lg backdrop-blur-[2px] p-1 inline-block"
+                  href="#"
+                >
+                  <img src={moon} width="24" height="24" alt="" />
+                </a>
+              )}
             </li>
             <li className="relative">
               <a

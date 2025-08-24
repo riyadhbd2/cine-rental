@@ -14,7 +14,7 @@ const CartDetails = ({ setShowCartModal }) => {
   return (
     <div className="fixed top-0 left-0 w-screen h-screen z-50 bg-black/60 backdrop-blur-sm">
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[420px] sm:max-w-[600px] lg:max-w-[790px] p-4 max-h-[90vh] overflow-auto">
-        <div className="bg-white shadow-md rounded-2xl overflow-hidden p-5 md:p-9">
+        <div className="dark:bg-black shadow-md rounded-2xl overflow-hidden p-5 md:p-9 bg-white dark:border dark:border-white">
           <h2 className="text-2xl lg:text-[30px] mb-10 font-bold">
             Your Carts
           </h2>

@@ -47,8 +47,9 @@ const MovieCard = ({ movie }) => {
           className="cursor-pointer"
         >
           <img
-            className="w-full object-cover"
+            className="h-1/6 object-cover"
             src={getImageUrl(movie.cover)}
+            
             alt=""
           />
         </button>
@@ -65,7 +66,7 @@ const MovieCard = ({ movie }) => {
             href="#"
           >
             <img src="./assets/tag.svg" alt="" />
-            <span>${movie.price} | Add to Cart</span>
+            <span className="dark:text-white">${movie.price} | Add to Cart</span>
           </a>
         </figcaption>
       </figure>
